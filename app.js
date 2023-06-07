@@ -1,3 +1,6 @@
+// include env
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 
@@ -14,8 +17,8 @@ app.use(express.static("./public")); // static files
 app.use("/", require("./routes/pages"));
 app.use("/api", require("./routes/api"));
 
-// 404 error
 app.use((req, res, next) => {
+  // 404 error
   const err = new Error("Not Found");
   err.status = 404;
   next(err);

@@ -1,0 +1,76 @@
+@font-face {
+  font-family: "Outfit";
+  src: url('./Outfit_500.woff2') format("woff2");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Outfit";
+  src: url('./Outfit_400.woff2') format("woff2");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Outfit";
+  src: url('./Outfit_300.woff2') format("woff2");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Outfit";
+  src: url('./Outfit_200.woff2') format("woff2");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Outfit";
+  src: url('./Outfit_100.woff2') format("woff2");
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  src: url('./SpoqaHanSansNeo-Bold.woff2') format("woff2");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  src: url('./SpoqaHanSansNeo-Medium.woff2') format("woff2");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  src: url('./SpoqaHanSansNeo-Regular.woff2') format("woff2");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  src: url('./SpoqaHanSansNeo-Light.woff2') format("woff2");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  src: url('./SpoqaHanSansNeo-Thin.woff2') format("woff2");
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: insdIcons;
+  src: url('./insd-icons.woff') format("woff");
+}
+
+:root {
+  --font-spoqa: "Spoqa Han Sans Neo";
+  --font-outfit: Outfit;
+  --font-text: Outfit, "Spoqa Han Sans Neo";
+  --font-icon: insdIcons;
+
+  font-family: var(--font-text);
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+}

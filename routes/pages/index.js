@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 router.get("/", (req, res) => {
-  res.send("경민이고추개큼");
+  res.sendFile("/index.html");
 });
 
 module.exports = router;
