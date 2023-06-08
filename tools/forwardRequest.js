@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 const forwardRequest = (req, res, options) => {
-  const { url, serviceKey, params } = options;
+  const { url, params } = options;
   console.log("[forwardRequest] sending request to", url);
 
   axios
@@ -9,7 +9,7 @@ const forwardRequest = (req, res, options) => {
       params: {
         ...req.query,
         ...params,
-        serviceKey,
+        serviceKey: process.env.SERVICE_KEY,
       },
     })
     .then((response) => {
