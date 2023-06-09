@@ -105,7 +105,7 @@ body {
 /* header */
 
 header {
-  width: 100%;
+  overflow: hidden;
   height: 60px;
   padding: 0 24px;
   box-sizing: border-box;
@@ -114,6 +114,7 @@ header {
 
 header > .container {
   max-width: 1080px;
+  overflow: hidden;
   margin: 0 auto;
   height: 100%;
   display: grid;
@@ -123,17 +124,87 @@ header > .container {
 header > .container > div {
   display: flex;
   align-items: center;
+  overflow: hidden;
 }
 
 header > .container > div > h1 {
   font-size: 18px;
   line-height: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+header button.back {
+  flex-shrink: 0;
+  cursor: pointer;
+  color: var(--color-text);
+  margin-right: 20px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+
+@media ((hover: hover) and (pointer: fine)) {
+  header button.back:hover {
+    opacity: 0.7;
+  }
+}
+
+header button.back:active {
+  opacity: 0.5;
 }
 
 .contents {
   padding: 0 24px;
   overflow-y: auto;
 }
+
+@keyframes LoadingAnimation {
+  0% {
+    background-color: var(--color-border);
+  }
+  50% {
+    background-color: var(--color-passive);
+  }
+  100% {
+    background-color: var(--color-border);
+  }
+}
+
+.loading {
+  display: inline-flex;
+  column-gap: 6px;
+}
+
+.loading > span {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background-color: var(--color-border);
+  animation: LoadingAnimation 1.4s ease-in-out infinite;
+}
+
+.loading[data-size="small"] {
+  column-gap: 4px;
+}
+
+.loading[data-size="small"] > span {
+  width: 8px; height: 8px;
+}
+
+.loading > span:nth-of-type(2) {
+  animation-delay: 200ms;
+}
+
+.loading > span:nth-of-type(3) {
+  animation-delay: 400ms;
+}
+
+.loading > span:nth-of-type(4) {
+  display: none;
+}
+
 
 /* icon */
 

@@ -1,30 +1,31 @@
-class Search {
-  constructor() {}
-
-  __startDate = "";
-  __endDate = "";
-  __address = "";
-
-  setStartDate = (date) => (this.__startDate = date);
-  setEndDate = (date) => (this.__endDate = date);
-  setArea = (areaName, address, x, y) => {};
-}
-
 window.onload = () => {
-  const search = new Search();
-
   // form elements
-  const startDate = document.getElementById("startDate");
-  const endDate = document.getElementById("endDate");
+  const startDate = document.querySelector("select[name=startDate]");
+  const endDate = document.querySelector("select[name=endDate]");
   const searchBar = document.getElementById("searchBar");
   const searchAjax = document.getElementById("searchAjax");
+  const submit = document.getElementById("submit");
+
+  // validate form
+  const validate = () =>
+    startDate.value !== "" &&
+    endDate.value !== "" &&
+    searchBar.getAttribute("data-valid") === "true";
+
+  const validateForSubmit = () => {
+    if (validate()) {
+      submit.removeAttribute("disabled");
+    } else {
+      submit.setAttribute("disabled", true);
+    }
+  };
 
   // 10일 이내의 날씨 정보만 조회할 수 있으므로, 10일치의 날짜 배열을 생성함.
-  const tenDays = new Array(11).fill().map((_, i) => {
+  const tenDays = new Array(10).fill().map((_, i) => {
     const date = new Date();
     date.setDate(date.getDate() + i);
 
-    if (i < 10) {
+    if (i < 9) {
       const option = document.createElement("option");
       option.value = date.toDateString();
       option.innerText = `${date.getMonth() + 1}월 ${date.getDate()}일`;
@@ -36,19 +37,12 @@ window.onload = () => {
 
   // 시작일이 변경되면, 종료일을 시작일 이후의 날짜로 변경한 후 활성화함.
   startDate.addEventListener("change", (e) => {
-    if (e.target.value !== "") {
-      if (
-        new Date(endDate.value) - new Date(e.target.value) <
-        1000 * 60 * 60 * 24
-      ) {
-        endDate.value = "";
-      }
+    endDate.innerHTML = '<option value="" selected>선택</option>';
 
-      console.log(e.target.value);
+    if (e.target.value !== "") {
       const start = tenDays.indexOf(e.target.value) + 1;
       const end = tenDays.length - 1;
 
-      endDate.innerHTML = '<option value="" selected>선택</option>';
       for (let i = start; i <= end; i++) {
         const date = new Date(tenDays[i]);
 
@@ -64,53 +58,105 @@ window.onload = () => {
       endDate.disabled = true;
       endDate.parentElement.parentElement.classList.add("disabled");
     }
+
+    validateForSubmit();
   });
 
+  endDate.addEventListener("change", validateForSubmit);
+
+  // 주소 자동완성 타이머
   let searchTimeout = null;
 
-  searchBar.addEventListener("focus", (e) => {
-    const searchAjax = document.getElementById("searchAjax");
+  searchBar.addEventListener("focus", () => {
     searchAjax.classList.remove("noBarFocus");
   });
 
-  // 주소 자동완성
   searchBar.addEventListener("input", (e) => {
-    searchAjax.innerHTML = "";
-    searchAjax.classList.remove("disabled");
+    if (searchBar.getAttribute("data-typing") === "false") {
+      searchAjax.innerHTML = `
+        <div class="loadingContainer">
+          <div class="loading">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span>Loading...</span>
+          </div>
+        </div>`;
+      searchAjax.classList.remove("disabled");
+      submit.setAttribute("disabled", true);
+
+      searchBar.parentElement.classList.remove("valid");
+      searchBar.setAttribute("data-valid", "false");
+      searchBar.setAttribute("data-typing", "true");
+    }
 
     clearTimeout(searchTimeout);
-    if (e.target.value !== "") {
-      searchTimeout = setTimeout(async () => {
-        const params = {
-          query: e.target.value,
-          size: 5,
-        };
 
-        const url =
-          "/api/kakao/address?" + new URLSearchParams(params).toString();
-        const res = await fetch(url);
-        const data = await res.json();
-
-        if (data.documents.length <= 0) {
-          searchAjax.classList.add("disabled");
-        } else {
-          data.documents.forEach((doc) => {
-            const li = document.createElement("li");
-            li.innerHTML = `<p class="name">${doc.place_name}</p><p class="address">${doc.road_address_name}</p>`;
-            li.onclick = () => {
-              console.log(doc.place_name, doc.address_name, doc.x, doc.y);
-              search.setArea(doc.place_name, doc.address_name, doc.x, doc.y);
-            };
-
-            searchAjax.appendChild(li);
-          });
-        }
-      }, 500);
-    } else {
+    if (e.target.value === "") {
       searchAjax.classList.add("disabled");
+      searchBar.setAttribute("data-typing", "false");
+      return;
     }
+
+    searchTimeout = setTimeout(async () => {
+      searchBar.setAttribute("data-typing", "false");
+
+      const params = {
+        query: e.target.value,
+        size: 5,
+      };
+
+      const url =
+        "/api/kakao/address?" + new URLSearchParams(params).toString();
+
+      let isError = false;
+
+      const res = await fetch(url).catch((err) => {
+        console.error(err);
+        searchAjax.classList.add("disabled");
+      });
+
+      searchAjax.innerHTML = "";
+      if (isError) return;
+
+      const data = await res.json();
+
+      // 데이터가 없는 경우 박스 삭제
+      if (data.documents.length <= 0) {
+        searchAjax.classList.add("disabled");
+      } else {
+        data.documents.forEach((doc) => {
+          const li = document.createElement("li");
+          li.innerHTML = `<p class="name">${
+            doc.place_name
+          }</p><p class="address">${
+            doc.road_address_name ? doc.road_address_name : doc.address_name
+          }</p>`;
+
+          // 리스트 엘리먼트 클릭 시 동작
+          li.onclick = () => {
+            const address = document.querySelector("input[name=address]");
+            const latitude = document.querySelector("input[name=latitude]");
+            const longitude = document.querySelector("input[name=longitude]");
+
+            searchBar.parentElement.classList.add("valid");
+            searchBar.setAttribute("data-valid", "true");
+            searchBar.value = doc.place_name;
+            address.value = doc.road_address_name;
+            latitude.value = doc.y;
+            longitude.value = doc.x;
+
+            searchBar.blur();
+            searchAjax.classList.add("noListFocus");
+            validateForSubmit();
+          };
+          searchAjax.appendChild(li);
+        });
+      }
+    }, 500);
   });
 
+  // searchBar와 searchAjax의 포커스가 둘 다 없을 때, searchAjax를 숨김
   searchBar.addEventListener("focusout", (e) => {
     searchAjax.classList.add("noBarFocus");
   });
@@ -119,7 +165,8 @@ window.onload = () => {
     searchAjax.classList.remove("noListFocus");
   });
 
-  searchAjax.addEventListener("focusout", (e) => {
-    searchAjax.classList.add("noListFocus");
+  // searchAjax 포커스 아웃 감지하기
+  document.addEventListener("click", (e) => {
+    if (!searchAjax.contains(e.target)) searchAjax.classList.add("noListFocus");
   });
 };
