@@ -127,11 +127,11 @@ window.onload = () => {
       } else {
         data.documents.forEach((doc) => {
           const li = document.createElement("li");
-          li.innerHTML = `<p class="name">${
-            doc.place_name
-          }</p><p class="address">${
-            doc.road_address_name ? doc.road_address_name : doc.address_name
-          }</p>`;
+          const compensated = doc.road_address_name
+            ? doc.road_address_name
+            : doc.address_name;
+
+          li.innerHTML = `<p class="name">${doc.place_name}</p><p class="address">${compensated}</p>`;
 
           // 리스트 엘리먼트 클릭 시 동작
           li.onclick = () => {
@@ -142,7 +142,7 @@ window.onload = () => {
             searchBar.parentElement.classList.add("valid");
             searchBar.setAttribute("data-valid", "true");
             searchBar.value = doc.place_name;
-            address.value = doc.road_address_name;
+            address.value = compensated;
             latitude.value = doc.y;
             longitude.value = doc.x;
 
