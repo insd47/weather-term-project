@@ -46,6 +46,7 @@ footer a {
 .formEach > p.label {
   color: var(--color-passive-dark);
   font-size: 12px;
+  padding: 0 12px;
   line-height: 16px;
 }
 

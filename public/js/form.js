@@ -6,6 +6,11 @@ window.onload = () => {
   const searchAjax = document.getElementById("searchAjax");
   const submit = document.getElementById("submit");
 
+  // clear data
+  startDate.value = "";
+  endDate.value = "";
+  searchBar.value = "";
+
   // validate form
   const validate = () =>
     startDate.value !== "" &&
@@ -75,7 +80,7 @@ window.onload = () => {
     if (searchBar.getAttribute("data-typing") === "false") {
       searchAjax.innerHTML = `
         <div class="loadingContainer">
-          <div class="loading">
+          <div class="loading" data-size="small">
             <span></span>
             <span></span>
             <span></span>
