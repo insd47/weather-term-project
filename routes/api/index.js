@@ -3,6 +3,7 @@ const {
   getDustMidForecast,
   getDustWarn,
 } = require("./dust");
+
 const {
   getShortForecast,
   getMidWeatherForecast,
@@ -10,6 +11,9 @@ const {
   getWeatherWarnCode,
   getWeatherWarn,
 } = require("./weather");
+
+const { getAddress } = require("./kakao");
+
 const router = require("express").Router();
 
 router.get("/example", (req, res) => {
@@ -27,5 +31,8 @@ router.get("/weather/forecast/mid/weather", getMidWeatherForecast);
 router.get("/weather/forecast/mid/temperature", getMidTemperatureForecast);
 router.get("/weather/warn", getWeatherWarn);
 router.get("/weather/warn/code", getWeatherWarnCode);
+
+// kakao
+router.get("/kakao/address", getAddress);
 
 module.exports = router;

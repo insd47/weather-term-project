@@ -1,29 +1,79 @@
-:root {
-  font-family: Arial, Helvetica, sans-serif;
-  color: black;
-  word-break: keep-all;
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
-html {
-  background-color: white;
+ul,
+ol {
+  padding-left: 20px;
+}
+
+:root {
+  --color-text: black;
+  --color-background: white;
+  --color-border: rgba(136, 136, 136, 0.4);
+  --color-passive: rgb(136, 136, 136);
+  --color-passive-dark: rgba(136, 136, 136, 0.7);
+  --color-hover: rgba(136, 136, 136, 0.15);
+  --color-link: #007bff;
+  --color-visited: #a600ff;
+
+  --color-red: #FC4F4F;
+  --color-green: #4AD871;
+  --color-yellow: #FFBF44;
+  --color-blue: #3C89FF;
+
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  word-break: keep-all;
+  font-size: 14px;
+  user-select: none;
+  line-height: 18px;
+}
+
+a {
+  display: inline-block;
+  position: relative;
+}
+
+a:link {
+  color: var(--color-link);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:before {
+  content: "";
+  position: absolute;
+  width: calc(100% + 6px);
+  height: calc(100% + 6px);
+  top: -3px;
+  left: -3px;
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+a:hover:before {
+  background-color: rgba(136, 136, 136, 0.2);
+}
+
+a:visited {
+  color: var(--color-visited);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    color: white;
+    --color-text: white;
+    --color-background: black;
+    --color-link: #4fa4ff;
+    --color-visited: #f475ff;
   }
-
-  html {
-    background-color: black;
-  }
-}
-
-body {
-  box-sizing: border-box;
-  max-width: 1080px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 40px;
 }
 
 ul {
@@ -38,4 +88,58 @@ ul li:before {
   content: "-";
   position: absolute;
   left: -15px;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  display: grid;
+  grid-template-rows: 60px 1fr;
+}
+
+/* header */
+
+header {
+  width: 100%;
+  height: 60px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  background-color: var(--color-background);
+}
+
+header > .container {
+  max-width: 1080px;
+  margin: 0 auto;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr max-content;
+}
+
+header > .container > div {
+  display: flex;
+  align-items: center;
+}
+
+header > .container > div > h1 {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.contents {
+  padding: 0 24px;
+  overflow-y: auto;
+}
+
+/* icon */
+
+.icon {
+  -webkit-font-smoothing: antialiased;
+  font-family: var(--font-icon);
+  font-size: 24px;
+  line-height: 24px;
 }

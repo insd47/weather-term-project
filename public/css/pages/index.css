@@ -1,0 +1,240 @@
+header > .container > div > button {
+  color: black;
+  padding: 0 8px;
+  height: 26px;
+  font-size: 12px;
+  line-height: 16px;
+  background-color: var(--color-yellow);
+}
+
+.button[type="submit"] {
+  width: 100%;
+}
+
+.dateGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 10px;
+}
+
+form {
+  height: calc(100% - 60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+footer {
+  text-align: center;
+  color: var(--color-passive-dark) !important;
+}
+
+footer a {
+  color: var(--color-passive-dark) !important;
+  text-decoration: underline !important;
+}
+
+/* form components */
+
+.formEach {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+  margin-bottom: 10px;
+}
+
+.formEach > p.label {
+  color: var(--color-passive-dark);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.formEach select,
+.formEach input[type="number"] {
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.formEach input[type="text"],
+.formEach input[type="email"],
+.formEach input[type="number"],
+.formEach select,
+textarea {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  height: 44px;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 0 12px;
+  font-size: 14px;
+  line-height: 18px;
+  outline: none;
+  transition: border-color 0.1s;
+}
+
+.formEach.disabled, .button[disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.formEach input[type="text"]:focus,
+.formEach input[type="email"]:focus,
+.formEach input[type="number"]:focus,
+.formEach select:focus,
+textarea:focus {
+  border-color: var(--color-text);
+}
+
+.selectContainer select {
+  cursor: pointer;
+  width: 100%;
+}
+
+.selectContainer {
+  position: relative;
+}
+
+.selectContainer select {
+  padding-right: 40px;
+}
+
+.selectContainer:after {
+  content: "keyboard_arrow_down";
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.searchContainer {
+  position: relative;
+}
+
+.searchContainer input {
+  width: 100%;
+}
+
+.searchContainer.valid input {
+  padding-left: 36px !important;
+
+}
+
+#searchAjax {
+  position: absolute;
+  bottom: -10px;
+  transform: translateY(100%);
+  left: 0;
+  width: 100%;
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 0;
+  outline: none;
+  transition: border-color 0.1s;
+  z-index: 1;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+#searchAjax > li {
+  padding: 14px;
+  cursor: pointer;
+}
+
+#searchAjax > li:before {
+  content: unset;
+}
+
+#searchAjax > li > .name {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+#searchAjax > li > .address {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--color-passive);
+}
+
+#searchAjax.disabled, #searchAjax.noBarFocus.noListFocus {
+  display: none;
+}
+
+@media ((hover: hover) and (pointer: fine)) {
+  #searchAjax > li:hover {
+    background-color: var(--color-hover);
+  }
+}
+
+#searchAjax > li:active {
+  background-color: var(--color-hover);
+}
+
+#searchAjax > li:active > p {
+  opacity: 0.5
+}
+
+.searchContainer.valid:after {
+  content: "icon-pos";
+  font-family: var(--font-icon);
+  font-size: 20px;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.button {
+  border: 0px;
+  font-size: 14px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: 0 18px;
+  height: 42px;
+  border-radius: 8px;
+  background-color: var(--color-text);
+  color: var(--color-background);
+  font-weight: 400;
+  transition: opacity 0.1s, transform 0.1s;
+}
+
+.button .icon {
+  font-size: 18px;
+}
+
+@media ((hover: hover) and (pointer: fine)) {
+  .button:hover {
+    opacity: 0.7;
+  }
+}
+
+.button:active {
+  opacity: 0.7;
+  transform: scale(0.97);
+}
