@@ -162,11 +162,11 @@ window.onload = () => {
   });
 
   // searchBar와 searchAjax의 포커스가 둘 다 없을 때, searchAjax를 숨김
-  searchBar.addEventListener("focusout", (e) => {
+  searchBar.addEventListener("focusout", () => {
     searchAjax.classList.add("noBarFocus");
   });
 
-  searchAjax.addEventListener("pointerdown", (e) => {
+  searchAjax.addEventListener("pointerdown", () => {
     searchAjax.classList.remove("noListFocus");
   });
 
