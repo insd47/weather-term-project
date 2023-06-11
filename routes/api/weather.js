@@ -27,18 +27,18 @@ module.exports = {
         pageNo: "1",
       },
     }),
-  getWeatherWarnCode: (req, res) =>
+  getWeatherWarnList: (req, res) =>
     forwardRequest(req, res, {
-      url: "https://apis.data.go.kr/1360000/WthrWrnInfoService/getWthrWrnMsg",
+      url: "https://apis.data.go.kr/1360000/WthrWrnInfoService/getPwnCd",
       params: {
         dataType: "JSON",
         numOfRows: "100",
         pageNo: "1",
       },
     }),
-  getWeatherWarn: (req, res) =>
+  getWeatherWarnCode: (req, res) =>
     forwardRequest(req, res, {
-      url: "https://apis.data.go.kr/1360000/WthrWrnInfoService/getPwnCd",
+      url: "https://apis.data.go.kr/1360000/WthrWrnInfoService/getWthrWrnMsg",
       params: {
         dataType: "JSON",
         numOfRows: "100",

@@ -8,8 +8,7 @@ const {
   getShortForecast,
   getMidWeatherForecast,
   getMidTemperatureForecast,
-  getWeatherWarnCode,
-  getWeatherWarn,
+  getWeatherWarnList,
 } = require("./weather");
 
 const { getAddress } = require("./kakao");
@@ -29,8 +28,7 @@ router.get("/dust/warn", getDustWarn);
 router.get("/weather/forecast/short", getShortForecast);
 router.get("/weather/forecast/mid/weather", getMidWeatherForecast);
 router.get("/weather/forecast/mid/temperature", getMidTemperatureForecast);
-router.get("/weather/warn", getWeatherWarn);
-router.get("/weather/warn/code", getWeatherWarnCode);
+router.get("/weather/warn", getWeatherWarnList);
 
 // kakao
 router.get("/kakao/address", getAddress);

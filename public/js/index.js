@@ -26,11 +26,11 @@ window.onload = () => {
   };
 
   // 10일 이내의 날씨 정보만 조회할 수 있으므로, 10일치의 날짜 배열을 생성함.
-  const tenDays = new Array(10).fill().map((_, i) => {
-    const date = new Date();
+  const tenDays = new Array(11).fill().map((_, i) => {
+    const date = new Date(getDate().dustDate);
     date.setDate(date.getDate() + i);
 
-    if (i < 9) {
+    if (i < 10) {
       const option = document.createElement("option");
       option.value = date.toDateString();
       option.innerText = `${date.getMonth() + 1}월 ${date.getDate()}일`;
@@ -147,7 +147,7 @@ window.onload = () => {
             searchBar.parentElement.classList.add("valid");
             searchBar.setAttribute("data-valid", "true");
             searchBar.value = doc.place_name;
-            address.value = compensated;
+            address.value = doc.address_name;
             latitude.value = doc.y;
             longitude.value = doc.x;
 
