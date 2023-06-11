@@ -6,7 +6,7 @@ module.exports = {
       url: "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst",
       params: {
         dataType: "JSON",
-        numOfRows: "100",
+        numOfRows: "1000",
       },
     }),
   getMidWeatherForecast: (req, res) =>

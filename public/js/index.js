@@ -30,14 +30,16 @@ window.onload = () => {
     const date = new Date(getDate().dustDate);
     date.setDate(date.getDate() + i);
 
+    const value = date.toISOString().split("T")[0];
+
     if (i < 10) {
       const option = document.createElement("option");
-      option.value = date.toDateString();
+      option.value = value;
       option.innerText = `${date.getMonth() + 1}월 ${date.getDate()}일`;
       startDate.appendChild(option);
     }
 
-    return date.toDateString();
+    return value;
   });
 
   // 시작일이 변경되면, 종료일을 시작일 이후의 날짜로 변경한 후 활성화함.
