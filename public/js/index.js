@@ -82,12 +82,7 @@ window.onload = () => {
     if (!searchBar.getAttribute("data-typing")) {
       searchAjax.innerHTML = `
         <div class="loadingContainer">
-          <div class="loading" data-size="small">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span>Loading...</span>
-          </div>
+          <insd-loading size="small"></insd-loading>
         </div>`;
       searchAjax.classList.remove("disabled");
       submit.setAttribute("disabled", true);

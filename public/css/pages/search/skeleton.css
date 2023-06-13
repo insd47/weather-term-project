@@ -1,0 +1,94 @@
+.skeleton {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: transparent;
+
+  transition: background-color 0.35s;
+}
+
+.skeleton[data-skeleton]:before {
+  background-color: var(--color-background);
+}
+
+.skeleton[data-skeleton]:after {
+  animation: Skeleton 2s infinite;
+  background-color: var(--color-active);
+}
+
+.skeleton:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+  z-index: 2;
+}
+
+.skeleton[data-big]:after {
+  max-height: 34px;
+  top: 50%;
+
+  width: max(calc(100% - 40px), 40px);
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+#summary-weather-min[data-skeleton], #summary-weather-max[data-skeleton] {
+  width: 60px;
+}
+
+#summary-weather-message[data-skeleton] {
+  width: 100%;
+  max-width: 200px;
+}
+
+#summary-weather-min[data-skeleton]:before {
+  animation-delay: 0.2s;
+}
+
+#summary-weather-min[data-skeleton]:before {
+  animation-delay: 0.4s;
+}
+
+#summary-weather-max[data-skeleton]:before {
+  animation-delay: 0.6s;
+}
+
+#summary-weather-message[data-skeleton]:before {
+  animation-delay: 0.8s;
+}
+
+#summary-termbar[data-skeleton]:before {
+  animation-delay: 1.0s;
+}
+
+#warn:before {
+  animation-delay: 1.2s;
+}
+
+@keyframes Skeleton {
+  0% {
+    background-color: var(--color-active);
+  }
+
+  50% {
+    background-color: var(--color-border);
+  }
+
+  100% {
+    background-color: var(--color-active);
+  }
+}

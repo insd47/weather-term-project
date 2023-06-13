@@ -12,10 +12,13 @@
     <link rel="stylesheet" href="/css/pages/search/index.css" />
     <link rel="stylesheet" href="/css/pages/search/skeleton.css" />
     <link rel="stylesheet" href="/css/pages/search/graph.css" />
+    <!-- elements -->
+    <script type="text/javascript" src="/js/elements.js"></script>
     <!-- tools -->
     <script type="text/javascript" src="/js/tools/positions.js"></script>
     <script type="text/javascript" src="/js/tools/others.js"></script>
     <script type="text/javascript" src="/js/tools/graph.js"></script>
+    <script type="text/javascript" src="/js/tools/weatherCodes.js"></script>
     <script type="text/javascript" src="/js/tools/areaCodes.js"></script>
     <!-- script -->
     <script type="text/javascript" src="/js/search/render.js"></script>
@@ -27,12 +30,12 @@
   </head>
   <body>
     <header>
-      <div class="container index-header">
+      <div class="container">
         <div>
           <button class="back" onclick="window.history.back()">
-            <span class="icon">icon-arrow-1-left</span>
+            <insd-icon type="arrow-1-left"></insd-icon>
           </button>
-          <span class="icon" style="margin-right: 4px">icon-pos</span>
+          <insd-icon style="margin-right: 4px" type="pos"></insd-icon>
           <h1 id="pageTitle"></h1>
         </div>
         <div></div>
@@ -42,47 +45,40 @@
       <div id="topTrigger"></div>
       <div class="summary">
         <div class="weather">
-          <img alt="weatherIcon" src="/weather/rain_cloud.svg" />
+          <div
+            id="summary-weather-icon"
+            class="skeleton"
+            data-big
+            data-skeleton
+          ></div>
           <div class="minmax">
-            <span>18°</span>
-            <span>26°</span>
+            <span id="summary-weather-min" class="skeleton" data-skeleton
+              >--°</span
+            >
+            <span id="summary-weather-max" class="skeleton" data-skeleton
+              >--°</span
+            >
           </div>
-          <p>5/29부터 5/30까지 비가 와요.</p>
+          <p id="summary-weather-message" class="skeleton" data-skeleton>--</p>
         </div>
-        <div class="termbar">
+        <div
+          id="summary-termbar"
+          class="termbar skeleton"
+          data-big
+          data-skeleton
+        >
           <div class="item">
-            <img alt="weatherIcon" src="/weather/sun_cloudy.svg" />
+            <div style="width: 24px; height: 24px"></div>
             <div>
-              <p>5/27</p>
-              <p>0%</p>
-            </div>
-          </div>
-          <div class="item">
-            <img alt="weatherIcon" src="/weather/cloudy.svg" />
-            <div>
-              <p>5/28</p>
-              <p>30%</p>
-            </div>
-          </div>
-          <div class="item" data-rain>
-            <img alt="weatherIcon" src="/weather/rain_cloud.svg" />
-            <div>
-              <p>5/29</p>
-              <p>70%</p>
-            </div>
-          </div>
-          <div class="item">
-            <img alt="weatherIcon" src="/weather/sun.svg" />
-            <div>
-              <p>5/30</p>
-              <p>0%</p>
+              <p>-</p>
+              <p>-</p>
             </div>
           </div>
         </div>
       </div>
-      <div class="warn" data-type="warn">
-        <span class="icon">icon-warn</span>
-        <span>유효한 기상 특보가 있습니다.</span>
+      <div id="warn" class="warn skeleton" data-skeleton>
+        <insd-icon type="reload"></insd-icon>
+        <span>--</span>
       </div>
       <nav id="tabs">
         <button type="button" data-active>일별</button>
@@ -96,7 +92,7 @@
               <p>월요일</p>
             </div>
             <div class="weather">
-              <img src="/weather/sun_cloudy.svg" />
+              <insd-weather-icon type="sun_cloudy"></insd-weather-icon>
               <span>맑고 구름</span>
             </div>
             <div class="others">
@@ -120,7 +116,7 @@
               <p>월요일</p>
             </div>
             <div class="weather">
-              <img src="/weather/sun_cloudy.svg" />
+              <insd-weather-icon type="sun_cloudy"></insd-weather-icon>
               <span>맑고 구름</span>
             </div>
             <div class="others">
@@ -144,7 +140,7 @@
               <p>월요일</p>
             </div>
             <div class="weather">
-              <img src="/weather/sun_cloudy.svg" />
+              <insd-weather-icon type="sun_cloudy"></insd-weather-icon>
               <span>맑고 구름</span>
             </div>
             <div class="others">
@@ -169,7 +165,7 @@
               <p>월요일</p>
             </div>
             <div class="weather">
-              <img src="/weather/sun_cloudy.svg" />
+              <insd-weather-icon type="sun_cloudy"></insd-weather-icon>
               <span>맑고 구름</span>
             </div>
             <div class="others">

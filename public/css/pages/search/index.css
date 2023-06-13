@@ -26,10 +26,10 @@ header[data-scroll] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 18px;
+  margin-bottom: 24px;
 }
 
-.summary > .weather > img {
+.summary > .weather > picture {
   width: 96px;
   height: 96px;
   margin-bottom: 10px;
@@ -42,15 +42,17 @@ header[data-scroll] {
 
   display: flex;
   column-gap: 12px;
+  margin-bottom: 4px;
 }
 
-.summary > .weather > .minmax > span:nth-child(1) {
+#summary-weather-min {
   color: var(--color-passive);
 }
 
-.summary > .weather > p {
+#summary-weather-message {
   font-size: 16px;
   line-height: 22px;
+  width: 100%;
 }
 
 .summary > .termbar {
@@ -110,7 +112,7 @@ header[data-scroll] {
   transform: translateX(-50%);
 }
 
-.summary > .termbar > .item > img {
+.summary > .termbar > .item > picture {
   top: 0;
   width: 24px;
   height: 24px;
@@ -129,18 +131,45 @@ header[data-scroll] {
   color: var(--color-passive);
 }
 
+#summary-weather-icon {
+  width: 96px;
+  height: 96px;
+  margin-bottom: 10px;
+}
+
 .warn {
+  cursor: pointer;
+
   height: 60px;
   padding: 0 18px;
   margin-bottom: 19px;
   
-  background-color: var(--color-yellow);
-  color: black;
+  background-color: var(--color-passive);
+  color: white;
   border-radius: 12px;
 
   display: flex;
   align-items: center;
   column-gap: 8px;
+}
+
+.warn[data-type="clear"] {
+  background-color: var(--color-green);
+}
+
+.warn[data-type="warn"] {
+  background-color: var(--color-yellow);
+  color: black;
+}
+
+@media ((hover: hover) and (pointer: fine)) {
+  .warn:hover {
+    opacity: 0.7;
+  }
+}
+
+.warn:active {
+  opacity: 0.5;
 }
 
 #tabs {
@@ -158,6 +187,7 @@ header[data-scroll] {
   display: flex;
   background-color: var(--color-background);
   z-index: 20;
+  column-gap: 10px;
 
   border-bottom: 1px solid transparent;
   border-top: 1px solid transparent;
@@ -180,10 +210,30 @@ header[data-scroll] {
   font-family: var(--font-text);
   font-size: 16px;
   line-height: 22px;
+
+  border-radius: 8px;
+}
+
+#tabs > button:active {
+  background-color: var(--color-active);
 }
 
 #tabs > button[data-active] {
   color: var(--color-text);
+}
+
+#tabs > button[data-active]:active {
+  background-color: transparent;
+}
+
+@media ((hover: hover) and (pointer: fine)) {
+  #tabs > button:hover {
+    background-color: var(--color-hover);
+  }
+
+  #tabs > button[data-active]:hover {
+    background-color: transparent;
+  }
 }
 
 #tabs > button[data-active]:after {

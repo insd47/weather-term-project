@@ -87,7 +87,7 @@ window.onload = async () => {
     position
   );
 
-  render.summary(weatherList, rainList);
+  render.summary(dates, weatherList, rainList);
 
   const { temperatureList } = await get.temperature(
     weatherDate,

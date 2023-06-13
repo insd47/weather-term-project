@@ -3,12 +3,12 @@ const day = 1000 * 60 * 60 * 24;
 const delay = (ms = 1000) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const getPriority = (weather) => {
-  let priority = 0;
+  let priority = 10;
 
   // 맑음, 구름많음, 흐림
-  if (weather.includes("구름많")) priority += 30;
+  if (weather.includes("구름많")) priority = 30;
   else if (weather.includes("흐림") || weather.includes("흐리고"))
-    priority += 40;
+    priority = 40;
 
   // 비, 소나기, 눈, 비/눈
   if (weather.includes("비")) priority += 1;
@@ -135,4 +135,30 @@ const changeDateForm = (yyyymmdd) => {
   const date = yyyymmdd.slice(6, 8);
 
   return `${year}-${month}-${date}`;
+};
+
+const getSummaryMessage = (weather) => {
+  if (weather == "10" || weather == "30") {
+    return "비가 오지 않을 것으로 예상됩니다.";
+  }
+
+  if (weather == "40") {
+    return "구름이 많아 비가 올 수도 있습니다.";
+  }
+
+  if (weather == "11" || weather == "31" || weather == "41") {
+    return "비가 오는 날이 있습니다.";
+  }
+
+  if (weather == "12" || weather == "32" || weather == "42") {
+    return "비 또는 눈이 올 수 있습니다.";
+  }
+
+  if (weather == "13" || weather == "33" || weather == "43") {
+    return "눈이 올 수 있습니다.";
+  }
+
+  if (weather == "14" || weather == "34" || weather == "44") {
+    return "소나기가 올 수 있습니다.";
+  }
 };
