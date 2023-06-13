@@ -240,7 +240,7 @@ header button.back:active {
 /* desktop */
 @media (min-width: 900px) {
   header {
-    height: 100px;
+    height: 80px;
   }
 
   header > .container {

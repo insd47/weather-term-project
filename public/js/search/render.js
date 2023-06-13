@@ -127,13 +127,13 @@ render.byDate = (
 
     const temperature = temperatureList[date];
 
-    temperatureMin.innerText = temperature.min ? temperature.min : "--" + "°";
+    temperatureMin.innerText = temperature.min + "°";
     temperatureMax.innerText = temperature.max + "°";
 
     temperatureProgress.classList.add("progress");
     temperatureProgress.setAttribute(
       "style",
-      `--start: ${temperature.min ? temperature.min : min};
+      `--start: ${temperature.min};
       --end: ${temperature.max};
       --min: ${min};
       --max: ${max};`

@@ -66,16 +66,15 @@ get.summary = async (
   if (startIndex < 3) {
     delay(500);
 
-    // 단기예보는 05:00, 17:00에 갱신되므로 중기예보보다 1시간 전의 데이터를 조회함.
-    const shortBaseTime = (parseInt(weatherDate.time) - 100)
-      .toString()
-      .padStart(4, 0);
+    // 단기예보는 하루 전의 23:00의 데이터를 사용함.
+    const shortBaseDate = new Date();
+    shortBaseDate.setDate(shortBaseDate.getDate() - 1);
 
     // 기상청 단기예보조회 API
     const short = await fetchWithParams("/api/weather/forecast/short", {
       pageNo: 1,
-      base_date: weatherDate.date,
-      base_time: shortBaseTime,
+      base_date: shortBaseDate.toISOString().split("T")[0].replace(/-/g, ""),
+      base_time: "2300",
       nx: position.x,
       ny: position.y,
     });
@@ -117,6 +116,7 @@ get.summary = async (
 
         rainList[fcstDate] = parseInt(now.fcstValue);
       } else if (now.category === "TMN") {
+        console.log("TMN", fcstDate);
         if (!(fcstDate in shortTempList)) shortTempList[fcstDate] = {};
         shortTempList[fcstDate].min = parseInt(now.fcstValue);
       } else if (now.category === "TMX") {

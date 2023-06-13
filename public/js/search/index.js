@@ -98,11 +98,7 @@ window.onload = async () => {
     shortTempList
   );
 
-  const min = Math.min(
-    ...dates.map((date) =>
-      temperatureList[date].min ? temperatureList[date].min : 0
-    )
-  );
+  const min = Math.min(...dates.map((date) => temperatureList[date].min));
   const max = Math.max(...dates.map((date) => temperatureList[date].max));
 
   render.tempSummary(min, max);
