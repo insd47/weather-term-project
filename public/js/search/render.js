@@ -1,10 +1,6 @@
 const render = {};
 
 render.summary = (dates, weatherList, rainList) => {
-  console.log("summary");
-  console.log("weatherList", weatherList);
-  console.log("rainList", rainList);
-
   const weathericon = document.getElementById("summary-weather-icon");
   const weathermessage = document.getElementById("summary-weather-message");
   const termbar = document.getElementById("summary-termbar");
@@ -74,6 +70,24 @@ render.summary = (dates, weatherList, rainList) => {
   termbar.removeAttribute("data-skeleton");
 };
 
+render.tempSummary = (dates, temperatureList) => {
+  const tempMin = document.getElementById("summary-weather-min");
+  const tempMax = document.getElementById("summary-weather-max");
+
+  const min = Math.min(
+    ...dates.map((date) =>
+      temperatureList[date].min ? temperatureList[date].min : 0
+    )
+  );
+  const max = Math.max(...dates.map((date) => temperatureList[date].max));
+
+  tempMin.innerText = min + "°C";
+  tempMax.innerText = max + "°C";
+
+  tempMin.removeAttribute("data-skeleton");
+  tempMax.removeAttribute("data-skeleton");
+};
+
 render.byDate = (weatherList, temperatureList, dustList) => {
   console.log("byDate");
   console.log("weatherList", weatherList);
@@ -89,6 +103,24 @@ render.byCategory = (weatherList, temperatureList, dustList) => {
 };
 
 render.warn = (warningList) => {
-  console.log("warn");
-  console.log("warningList", warningList);
+  const warn = document.getElementById("warn");
+  const newIcon = document.createElement("insd-icon");
+
+  if (warningList.length <= 0) {
+    warn.setAttribute("data-type", "clear");
+
+    newIcon.setAttribute("type", "complete");
+    warn.children[0].replaceWith(newIcon);
+
+    warn.children[1].innerText = "유효한 기상 특보가 없습니다.";
+  } else {
+    warn.setAttribute("data-type", "warn");
+
+    newIcon.setAttribute("type", "warn");
+    warn.children[0].replaceWith(newIcon);
+
+    warn.children[1].innerText = "유효한 기상 특보가 있습니다.";
+  }
+
+  warn.removeAttribute("data-skeleton");
 };

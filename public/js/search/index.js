@@ -98,6 +98,8 @@ window.onload = async () => {
     shortTempList
   );
 
+  render.tempSummary(dates, temperatureList);
+
   const { dustList } = await get.dust(startDate, endDate, areaCodes[city]);
 
   render.byDate(weatherList, temperatureList, dustList);

@@ -55,27 +55,27 @@
   max-width: 200px;
 }
 
-#summary-weather-min[data-skeleton]:before {
+#summary-weather-min[data-skeleton]:after {
   animation-delay: 0.2s;
 }
 
-#summary-weather-min[data-skeleton]:before {
+#summary-weather-min[data-skeleton]:after {
   animation-delay: 0.4s;
 }
 
-#summary-weather-max[data-skeleton]:before {
+#summary-weather-max[data-skeleton]:after {
   animation-delay: 0.6s;
 }
 
-#summary-weather-message[data-skeleton]:before {
+#summary-weather-message[data-skeleton]:after {
   animation-delay: 0.8s;
 }
 
-#summary-termbar[data-skeleton]:before {
+#summary-termbar[data-skeleton]:after {
   animation-delay: 1.0s;
 }
 
-#warn:before {
+#warn:after {
   animation-delay: 1.2s;
 }
 
