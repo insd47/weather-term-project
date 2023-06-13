@@ -1,0 +1,191 @@
+#topTrigger {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 0;
+}
+
+header {
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+
+  transition: border-bottom 0.1s;
+}
+
+header[data-scroll] {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.summary {
+  margin-top: 30px;
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.summary > .weather {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.summary > .weather > img {
+  width: 96px;
+  height: 96px;
+  margin-bottom: 10px;
+}
+
+.summary > .weather > .minmax {
+  font-size: 26px;
+  line-height: 34px;
+  font-weight: 500;
+
+  display: flex;
+  column-gap: 12px;
+}
+
+.summary > .weather > .minmax > span:nth-child(1) {
+  color: var(--color-passive);
+}
+
+.summary > .weather > p {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.summary > .termbar {
+  display: flex;
+  padding: 0 24px;
+}
+
+.summary > .termbar > .item {
+  flex: 1;
+  position: relative;
+  height: 88px;
+}
+
+.summary > .termbar > .item:nth-last-child(1) {
+  flex: 0;
+}
+
+.summary > .termbar > .item:before,
+.summary > .termbar > .item:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background-color: var(--color-border);
+}
+
+.summary > .termbar > .item:before {
+  left: 0;
+  top: 34px;
+  width: 2px;
+  height: 10px;
+  border-radius: 1px;
+}
+
+.summary > .termbar > .item:after {
+  top: 38px;
+  border-top-right-radius: 1px;
+  border-bottom-right-radius: 1px;
+  width: calc(100% - 4px);
+  left: 2px;
+  height: 2px;
+}
+
+.summary > .termbar > .item:nth-last-child(1):after {
+  content: unset;
+}
+
+.summary > .termbar > .item > * {
+  position: absolute;
+  left: 0;
+  transform: translateX(-50%);
+}
+
+.summary > .termbar > .item > img {
+  top: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.summary > .termbar > .item > div {
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.summary > .termbar > .item > div > p:nth-child(2) {
+  color: var(--color-passive);
+}
+
+.warn {
+  height: 60px;
+  padding: 0 18px;
+  margin-bottom: 19px;
+  
+  background-color: var(--color-yellow);
+  color: black;
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
+#tabs {
+  width: calc(100% + 48px);
+  margin-left: -24px;
+
+  position: sticky;
+  top: -1px;
+  height: 49px;
+  box-sizing: border-box;
+  padding: 0 24px;
+  padding-top: 1px;
+  margin-bottom: 24px;
+  
+  display: flex;
+  background-color: var(--color-background);
+  z-index: 20;
+
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+
+  transition: border-color 0.1s;
+}
+
+#tabs[data-sticky] {
+  border-bottom: 1px solid var(--color-border);
+}
+
+#tabs > button {
+  flex: 1;
+  background-color: transparent;
+  color: var(--color-passive-dark);
+  outline: none;
+  border: 0;
+  position: relative;
+
+  font-family: var(--font-text);
+  font-size: 16px;
+  line-height: 22px;
+}
+
+#tabs > button[data-active] {
+  color: var(--color-text);
+}
+
+#tabs > button[data-active]:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-text);
+  border-radius: 1px;
+}

@@ -156,9 +156,11 @@ header button.back:active {
   opacity: 0.5;
 }
 
-.contents {
+#contents {
+  position: relative;
   padding: 0 24px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 @keyframes LoadingAnimation {

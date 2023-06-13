@@ -9,7 +9,9 @@
     "axios": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.1.4",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "node-localStorage": "^0.0.1",
+    "store": "^2.0.12"
   },
   "scripts": {
     "test": "nodemon app",

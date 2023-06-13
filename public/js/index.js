@@ -15,7 +15,7 @@ window.onload = () => {
   const validate = () =>
     startDate.value !== "" &&
     endDate.value !== "" &&
-    searchBar.getAttribute("data-valid") === "true";
+    searchBar.getAttribute("data-valid");
 
   const validateForSubmit = () => {
     if (validate()) {
@@ -26,13 +26,13 @@ window.onload = () => {
   };
 
   // 10일 이내의 날씨 정보만 조회할 수 있으므로, 10일치의 날짜 배열을 생성함.
-  const tenDays = new Array(11).fill().map((_, i) => {
-    const date = new Date(getDate().dustDate);
+  const tenDays = new Array(10).fill().map((_, i) => {
+    const date = new Date(getWeatherDate().formatted);
     date.setDate(date.getDate() + i);
 
     const value = date.toISOString().split("T")[0];
 
-    if (i < 10) {
+    if (i < 9) {
       const option = document.createElement("option");
       option.value = value;
       option.innerText = `${date.getMonth() + 1}월 ${date.getDate()}일`;
@@ -79,7 +79,7 @@ window.onload = () => {
   });
 
   searchBar.addEventListener("input", (e) => {
-    if (searchBar.getAttribute("data-typing") === "false") {
+    if (!searchBar.getAttribute("data-typing")) {
       searchAjax.innerHTML = `
         <div class="loadingContainer">
           <div class="loading" data-size="small">
@@ -93,20 +93,20 @@ window.onload = () => {
       submit.setAttribute("disabled", true);
 
       searchBar.parentElement.classList.remove("valid");
-      searchBar.setAttribute("data-valid", "false");
-      searchBar.setAttribute("data-typing", "true");
+      searchBar.removeAttribute("data-valid");
+      searchBar.setAttribute("data-typing", true);
     }
 
     clearTimeout(searchTimeout);
 
     if (e.target.value === "") {
       searchAjax.classList.add("disabled");
-      searchBar.setAttribute("data-typing", "false");
+      searchBar.removeAttribute("data-typing");
       return;
     }
 
     searchTimeout = setTimeout(async () => {
-      searchBar.setAttribute("data-typing", "false");
+      searchBar.removeAttribute("data-typing");
 
       const params = {
         query: e.target.value,
@@ -147,7 +147,7 @@ window.onload = () => {
             const longitude = document.querySelector("input[name=longitude]");
 
             searchBar.parentElement.classList.add("valid");
-            searchBar.setAttribute("data-valid", "true");
+            searchBar.setAttribute("data-valid", true);
             searchBar.value = doc.place_name;
             address.value = doc.address_name;
             latitude.value = doc.y;
@@ -160,7 +160,7 @@ window.onload = () => {
           searchAjax.appendChild(li);
         });
       }
-    }, 500);
+    }, 300);
   });
 
   // searchBar와 searchAjax의 포커스가 둘 다 없을 때, searchAjax를 숨김

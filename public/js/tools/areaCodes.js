@@ -48,7 +48,7 @@ const areaCodes = {
     dustShortName: "울산",
     dustMidName: "울산",
   },
-  세종특별자치시: {
+  세종: {
     midWeatherForecast: "11C20000",
     midTemperatureForecast: "11C20401",
     weatherWarn: "133",
@@ -111,7 +111,7 @@ const areaCodes = {
     dustShortName: "경남",
     dustMidName: "경남",
   },
-  제주특별자치도: {
+  제주: {
     midWeatherForecast: "11G00000",
     midTemperatureForecast: "11G00201",
     weatherWarn: "184",

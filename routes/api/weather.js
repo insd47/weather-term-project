@@ -1,5 +1,16 @@
 const { forwardRequest } = require("../../tools");
 
+const getWeatherExpire = () => {
+  const now = new Date();
+  const hour24 = parseInt(now.getHours().toString());
+
+  const expiresAt = new Date();
+  expiresAt.setDate(hour24 < 12 ? now.getDate() : now.getDate() + 1);
+  expiresAt.setHours(hour24 < 12 ? "12" : "00");
+
+  return expiresAt - now;
+};
+
 module.exports = {
   getShortForecast: (req, res) =>
     forwardRequest(req, res, {
@@ -8,6 +19,7 @@ module.exports = {
         dataType: "JSON",
         numOfRows: "1000",
       },
+      expire: getWeatherExpire,
     }),
   getMidWeatherForecast: (req, res) =>
     forwardRequest(req, res, {
@@ -17,6 +29,7 @@ module.exports = {
         numOfRows: "1",
         pageNo: "1",
       },
+      expire: getWeatherExpire,
     }),
   getMidTemperatureForecast: (req, res) =>
     forwardRequest(req, res, {
@@ -26,6 +39,7 @@ module.exports = {
         numOfRows: "1",
         pageNo: "1",
       },
+      expire: getWeatherExpire,
     }),
   getWeatherWarnList: (req, res) =>
     forwardRequest(req, res, {

@@ -1,3 +1,5 @@
+const day = 1000 * 60 * 60 * 24;
+
 const delay = (ms = 1000) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const getPriority = (weather) => {
@@ -17,7 +19,7 @@ const getPriority = (weather) => {
   return priority;
 };
 
-const handleError = async (res) => {
+const handleError = async (res, noAPIError, callback) => {
   if (res.status !== 200) {
     const params = {
       type: "RequestError",
@@ -27,13 +29,15 @@ const handleError = async (res) => {
       }),
     };
 
-    window.location.href = `/error?${new URLSearchParams(params).toString()}`;
+    if (callback) callback(params);
+    else
+      window.location.href = `/error?${new URLSearchParams(params).toString()}`;
     return;
   }
 
   const { response } = await res.json();
 
-  if (response.header.resultCode !== "00") {
+  if (response.header.resultCode !== "00" && (!noAPIError || callback)) {
     const params = {
       type: "APIError",
       details: JSON.stringify({
@@ -42,7 +46,9 @@ const handleError = async (res) => {
       }),
     };
 
-    window.location.href = `/error?${new URLSearchParams(params).toString()}`;
+    if (callback) callback(params);
+    else
+      window.location.href = `/error?${new URLSearchParams(params).toString()}`;
     return;
   }
 
@@ -50,6 +56,12 @@ const handleError = async (res) => {
 };
 
 const fetchWithParams = (url, params, options, timeout) => {
+  const { noAPIError, callback, ...restOptions } = {
+    noAPIError: false,
+    callback: () => {},
+    ...options,
+  };
+
   return new Promise((resolve, reject) => {
     let timer = timeout
       ? setTimeout(
@@ -62,14 +74,18 @@ const fetchWithParams = (url, params, options, timeout) => {
         )
       : null;
 
-    fetch(url + "?" + new URLSearchParams(params).toString(), options)
-      .then(handleError)
+    fetch(url + "?" + new URLSearchParams(params).toString(), restOptions)
+      .then((res) => {
+        if (timer) clearTimeout(timer);
+        return res;
+      })
+      .then((res) => handleError(res, noAPIError, callback))
       .then(resolve)
       .catch((err) => reject(err));
   });
 };
 
-const getDate = () => {
+const getWeatherDate = () => {
   const now = new Date();
 
   // 기상청 API에 사용할 요청 시간
@@ -85,11 +101,28 @@ const getDate = () => {
   };
 
   return {
-    weatherDate: `${year}${month}${date}`,
-    weatherTime: `${hour}00`,
-    dustDate: `${year}-${month}-${date}`,
+    date: `${year}${month}${date}`,
+    time: `${hour}00`,
+    formatted: `${year}-${month}-${date}`,
     original: { year, month, date, hour },
   };
+};
+
+const getDustDate = () => {
+  const now = new Date();
+
+  // 에어코리아 API에 사용할 요청 시간
+  // 중기예보는 17:30에 업로드되므로
+  // 18시 이전은 하루 전의 데이터를 사용하도록 함.
+  const hour24 = parseInt(now.getHours().toString());
+
+  const { year, month, date } = {
+    year: now.getFullYear().toString().padStart(4, "0"),
+    month: (now.getMonth() + 1).toString().padStart(2, "0"),
+    date: hour24 < 18 ? now.getDate() - 1 : now.getDate(),
+  };
+
+  return `${year}-${month}-${date}`;
 };
 
 const changeDateForm = (yyyymmdd) => {
