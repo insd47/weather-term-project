@@ -250,7 +250,6 @@ header[data-scroll] {
   display: flex;
   flex-direction: column;
   row-gap: 16px;
-  margin-bottom: 120px;
 }
 
 .byDate > ul > li {
@@ -343,9 +342,199 @@ footer {
   margin-bottom: 60px;
 }
 
+.byCategory {
+  padding-top: 10px;
+}
+
+.byCategory > .item {
+  margin-bottom: 60px;
+}
+
+.byCategory > .item > h2 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  margin-bottom: 16px;
+}
+
+.graph {
+  height: 90px;
+  margin-bottom: 10px;
+  display: flex;
+  padding: 0 24px;
+  padding-top: 30px;
+}
+
+.graph > div {
+  flex: 1;
+  position: relative;
+}
+
+.graph > div:nth-last-child(1) {
+  flex: 0;
+}
+
+.graph > div:after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color);
+  box-sizing: border-box;
+  border: 2px solid var(--color-background);
+
+  position: absolute;
+  left: 0;
+  bottom: calc((var(--value) - var(--min)) / (var(--max) - var(--min)) * 100%);
+
+  transform: translate(-50%, 50%);
+}
+
+.graph > div > span {
+  position: absolute;
+  left: 0;
+  bottom: calc((var(--value) - var(--min)) / (var(--max) - var(--min)) * 100%);
+
+  transform: translate(-50%, calc(50% - 20px));
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.graph > div:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  background-color: var(--color);
+  clip-path: polygon(0% calc(100% - ((var(--value) - var(--min)) / (var(--max) - var(--min)) * 100%) + 1px), 0% calc(100% - ((var(--value) - var(--min)) / (var(--max) - var(--min)) * 100%) - 1px), 100% calc(100% - ((var(--next) - var(--min)) / (var(--max) - var(--min)) * 100%) - 1px), 100% calc(100% - ((var(--next) - var(--min)) / (var(--max) - var(--min)) * 100%) + 1px));
+}
+
+.graphaxis {
+  display: flex;
+  padding: 0 24px;
+}
+
+.graphaxis > div {
+  flex: 1;
+  position: relative;
+  height: 32px;
+}
+
+.graphaxis > div:nth-last-child(1) {
+  flex: 0;
+}
+
+.graphaxis > div:before,
+.graphaxis > div:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background-color: var(--color-border);
+}
+
+.graphaxis > div:before {
+  left: -1px;
+  top: 0;
+  width: 2px;
+  height: 10px;
+  border-radius: 1px;
+}
+
+.graphaxis > div:after {
+  top: 4px;
+  border-top-right-radius: 1px;
+  border-bottom-right-radius: 1px;
+  width: calc(100% - 4px);
+  left: 1px;
+  height: 2px;
+}
+
+.graphaxis span {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform: translateX(-50%);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.dustgraph {
+  display: flex;
+  padding: 0 24px;
+}
+
+.dustgraph > div {
+  flex: 1;
+  position: relative;
+  height: 56px;
+}
+
+.dustgraph > div:nth-last-child(1) {
+  flex: 0;
+}
+
+.dustgraph > div:before,
+.dustgraph > div:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background-color: var(--color);
+}
+
+.dustgraph > div:before {
+  left: -1px;
+  top: 24px;
+  width: 2px;
+  height: 10px;
+  border-radius: 1px;
+}
+
+.dustgraph > div:after {
+  top: 28px;
+  border-top-right-radius: 1px;
+  border-bottom-right-radius: 1px;
+  width: calc(100% - 4px);
+  left: 1px;
+  height: 2px;
+}
+
+.dustgraph span {
+  position: absolute;
+  transform: translateX(-50%);
+  left: 0;
+
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.dustgraph span:nth-child(1) {
+  top: 0;
+
+}
+
+.dustgraph span:nth-child(2) {
+  bottom: 0;
+}
+
+#result {
+  margin-bottom: 120px;
+}
+
 /* desktop */
 @media (min-width: 900px) {
   #tabs {
     position: unset;
+    border-bottom-color: transparent !important;
+  }
+
+  .byCategory > .item {
+    margin-bottom: 100px;
+  }
+
+  .graph {
+    height: 120px;
   }
 }

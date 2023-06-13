@@ -107,11 +107,7 @@ window.onload = async () => {
 
   render.byDate(dates, weatherList, temperatureList, { min, max }, dustList);
 
-  const { warningList } = await get.warn(areaCodes[city]);
-
-  render.warn(warningList);
-
-  // 4. 탭 변경하기
+  // 탭 변경 활성화
   const changeTab = (tab) => {
     const result = document.getElementById("result");
 
@@ -136,10 +132,14 @@ window.onload = async () => {
       result.innerHTML = "";
       result.setAttribute("class", "byCategory");
 
-      render.byCategory(weatherList, rainList, temperatureList, dustList);
+      render.byCategory(dates, temperatureList, dustList);
     }
   };
 
   tabs.children[0].addEventListener("click", () => changeTab("byDate"));
   tabs.children[1].addEventListener("click", () => changeTab("byCategory"));
+
+  const { warningList } = await get.warn(areaCodes[city]);
+
+  render.warn(warningList);
 };

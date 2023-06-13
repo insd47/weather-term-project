@@ -200,7 +200,7 @@ get.dust = async (startDate, endDate, areaCodes) => {
   // 요청 데이터 정리
   const strIndex = ["One", "Two", "Three", "Four"];
   const grades = {
-    낮음: 0,
+    낮음: 1,
     높음: 2,
     좋음: 0,
     보통: 1,

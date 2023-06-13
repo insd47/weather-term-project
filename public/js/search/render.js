@@ -166,11 +166,139 @@ render.byDate = (
   result.append(ul);
 };
 
-render.byCategory = (weatherList, temperatureList, dustList) => {
-  console.log("byCategory");
-  console.log("weatherList", weatherList);
-  console.log("temperatureList", temperatureList);
-  console.log("dustList", dustList);
+render.byCategory = (dates, temperatureList, dustList) => {
+  const result = document.getElementById("result");
+
+  // 최고 기온
+  const maxTempElement = document.createElement("div");
+  maxTempElement.classList.add("item");
+
+  const maxTempTitle = document.createElement("h2");
+  maxTempTitle.innerText = "최고 기온";
+
+  const maxGraph = document.createElement("div");
+  maxGraph.classList.add("graph");
+
+  const maxGraphAxis = document.createElement("div");
+  maxGraphAxis.classList.add("graphaxis");
+
+  console.log(temperatureList);
+
+  const minOfMax = Math.min(
+    ...Object.values(temperatureList).map((t) => t.max)
+  );
+  const maxOfMax = Math.max(
+    ...Object.values(temperatureList).map((t) => t.max)
+  );
+
+  dates.forEach((date, index) => {
+    const graphItem = document.createElement("div");
+    const axisItem = document.createElement("div");
+    const text = document.createElement("span");
+    const dateText = document.createElement("span");
+
+    const temperature = temperatureList[date];
+
+    graphItem.setAttribute(
+      "style",
+      `--value: ${temperature.max};
+      --next: ${temperatureList[dates[index + 1]]?.max || temperature.max};
+      --min: ${minOfMax};
+      --max: ${maxOfMax};
+      --color: var(--color-yellow);`
+    );
+
+    text.innerText = temperature.max + "°";
+    graphItem.append(text);
+
+    dateText.innerText = date.slice(5).replace("-", "/");
+    axisItem.append(dateText);
+
+    maxGraph.append(graphItem);
+    maxGraphAxis.append(axisItem);
+  });
+
+  maxTempElement.append(maxTempTitle, maxGraph, maxGraphAxis);
+
+  // 최저 기온
+  const minTempElement = document.createElement("div");
+  minTempElement.classList.add("item");
+
+  const minTempTitle = document.createElement("h2");
+  minTempTitle.innerText = "최저 기온";
+
+  const minGraph = document.createElement("div");
+  minGraph.classList.add("graph");
+
+  const minGraphAxis = document.createElement("div");
+  minGraphAxis.classList.add("graphaxis");
+
+  const minOfMin = Math.min(
+    ...Object.values(temperatureList).map((t) => t.min)
+  );
+  const maxOfMin = Math.max(
+    ...Object.values(temperatureList).map((t) => t.min)
+  );
+
+  dates.forEach((date, index) => {
+    const graphItem = document.createElement("div");
+    const axisItem = document.createElement("div");
+    const text = document.createElement("span");
+    const dateText = document.createElement("span");
+
+    const temperature = temperatureList[date];
+
+    graphItem.setAttribute(
+      "style",
+      `--value: ${temperature.min};
+      --next: ${temperatureList[dates[index + 1]]?.min || temperature.min};
+      --min: ${minOfMin};
+      --max: ${maxOfMin};
+      --color: var(--color-blue);`
+    );
+
+    text.innerText = temperature.min + "°";
+    graphItem.append(text);
+
+    dateText.innerText = date.slice(5).replace("-", "/");
+    axisItem.append(dateText);
+
+    minGraph.append(graphItem);
+    minGraphAxis.append(axisItem);
+  });
+
+  minTempElement.append(minTempTitle, minGraph, minGraphAxis);
+
+  // 초미세먼지
+  const dustElement = document.createElement("div");
+  dustElement.classList.add("item");
+
+  const dustTitle = document.createElement("h2");
+  dustTitle.innerText = "초미세먼지";
+
+  const dustGraph = document.createElement("div");
+  dustGraph.classList.add("dustgraph");
+
+  dates.forEach((date) => {
+    const item = document.createElement("div");
+
+    const text = document.createElement("span");
+    const dateText = document.createElement("span");
+
+    text.setAttribute("style", `color: ${dustCodes[dustList[date]].color};`);
+    item.setAttribute("style", `--color: ${dustCodes[dustList[date]].color};`);
+
+    text.innerText = dustCodes[dustList[date]].text;
+    dateText.innerText = date.slice(5).replace("-", "/");
+
+    item.append(text, dateText);
+    dustGraph.append(item);
+  });
+
+  dustElement.append(dustTitle, dustGraph);
+
+  // 반영
+  result.append(maxTempElement, minTempElement, dustElement);
 };
 
 render.warn = (warningList) => {
