@@ -64,7 +64,7 @@
               <p>30%</p>
             </div>
           </div>
-          <div class="item">
+          <div class="item" data-rain>
             <img alt="weatherIcon" src="/weather/rain_cloud.svg" />
             <div>
               <p>5/29</p>
@@ -88,7 +88,7 @@
         <button type="button" data-active>일별</button>
         <button type="button">항목별</button>
       </nav>
-      <div class="byDate">
+      <div id="result" class="byDate">
         <ul>
           <li>
             <div class="date">
@@ -102,7 +102,10 @@
             <div class="others">
               <div class="temperature">
                 <span>18°</span>
-                <div class="progress"></div>
+                <div
+                  class="progress"
+                  style="--start: 18; --end: 26; --min: 16; --max: 30"
+                ></div>
                 <span>26°</span>
               </div>
               <div class="dust">
@@ -123,7 +126,10 @@
             <div class="others">
               <div class="temperature">
                 <span>18°</span>
-                <div class="progress"></div>
+                <div
+                  class="progress"
+                  style="--start: 18; --end: 26; --min: 16; --max: 30"
+                ></div>
                 <span>26°</span>
               </div>
               <div class="dust">
@@ -144,7 +150,11 @@
             <div class="others">
               <div class="temperature">
                 <span>18°</span>
-                <div class="progress"></div>
+                <div
+                  class="progress"
+                  data-start="18"
+                  style="--start: 18; --end: 26; --min: 16; --max: 30"
+                ></div>
                 <span>26°</span>
               </div>
               <div class="dust">
@@ -165,18 +175,24 @@
             <div class="others">
               <div class="temperature">
                 <span>18°</span>
-                <div class="progress"></div>
+                <div
+                  class="progress"
+                  style="--start: 18; --end: 26; --min: 16; --max: 30"
+                ></div>
                 <span>26°</span>
               </div>
               <div class="dust">
                 <span>PM2.5</span>
-                <span>나쁨</span>
+                <span style="--color-dust: var(--color-red)">나쁨</span>
               </div>
             </div>
           </li>
         </ul>
       </div>
-      <div style="height: 700px"></div>
+      <footer>
+        by insd.<br />
+        <a href="/about">어플리케이션 정보</a>
+      </footer>
     </div>
   </body>
 </html>

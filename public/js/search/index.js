@@ -17,7 +17,11 @@ window.onload = async () => {
 
   const tabObserver = new IntersectionObserver(
     ([tabs]) => {
-      header[0].toggleAttribute("data-scroll", tabs.intersectionRatio >= 1);
+      if (tabs.intersectionRect.top < 65)
+        header[0].toggleAttribute(
+          "data-scroll",
+          scrollBox.scrollTop > 0 && tabs.intersectionRatio >= 1
+        );
       tabs.target.toggleAttribute("data-sticky", tabs.intersectionRatio < 1);
     },
     { threshold: [1] }

@@ -24,16 +24,6 @@ form {
   justify-content: center;
 }
 
-footer {
-  text-align: center;
-  color: var(--color-passive-dark) !important;
-}
-
-footer a {
-  color: var(--color-passive-dark) !important;
-  text-decoration: underline !important;
-}
-
 /* form components */
 
 .formEach {

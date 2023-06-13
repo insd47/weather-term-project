@@ -33,6 +33,17 @@ ol {
   line-height: 18px;
 }
 
+footer {
+  text-align: center;
+  color: var(--color-passive-dark) !important;
+}
+
+footer a {
+  color: var(--color-passive-dark) !important;
+  text-decoration: underline !important;
+}
+
+
 a {
   display: inline-block;
   position: relative;

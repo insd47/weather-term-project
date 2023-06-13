@@ -31,7 +31,9 @@ const handleError = async (res, noAPIError, callback) => {
 
     if (callback) callback(params);
     else
-      window.location.href = `/error?${new URLSearchParams(params).toString()}`;
+      window.location.replace(
+        `/error?${new URLSearchParams(params).toString()}`
+      );
     return;
   }
 
@@ -48,7 +50,9 @@ const handleError = async (res, noAPIError, callback) => {
 
     if (callback) callback(params);
     else
-      window.location.href = `/error?${new URLSearchParams(params).toString()}`;
+      window.location.replace(
+        `/error?${new URLSearchParams(params).toString()}`
+      );
     return;
   }
 
