@@ -220,19 +220,12 @@ header[data-scroll] {
 
 #tabs > button[data-active] {
   color: var(--color-text);
-}
-
-#tabs > button[data-active]:active {
-  background-color: transparent;
+  pointer-events: none;
 }
 
 @media ((hover: hover) and (pointer: fine)) {
   #tabs > button:hover {
     background-color: var(--color-hover);
-  }
-
-  #tabs > button[data-active]:hover {
-    background-color: transparent;
   }
 }
 
@@ -257,7 +250,7 @@ header[data-scroll] {
 
 .byDate > ul > li {
   display: grid;
-  grid-template-columns: 50px max-content 1fr;
+  grid-template-columns: 56px max-content 1fr;
   column-gap: 20px;
   align-items: center;
 }

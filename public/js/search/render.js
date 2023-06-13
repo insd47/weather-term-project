@@ -70,16 +70,9 @@ render.summary = (dates, weatherList, rainList) => {
   termbar.removeAttribute("data-skeleton");
 };
 
-render.tempSummary = (dates, temperatureList) => {
+render.tempSummary = (min, max) => {
   const tempMin = document.getElementById("summary-weather-min");
   const tempMax = document.getElementById("summary-weather-max");
-
-  const min = Math.min(
-    ...dates.map((date) =>
-      temperatureList[date].min ? temperatureList[date].min : 0
-    )
-  );
-  const max = Math.max(...dates.map((date) => temperatureList[date].max));
 
   tempMin.innerText = min + "°C";
   tempMax.innerText = max + "°C";
@@ -88,11 +81,89 @@ render.tempSummary = (dates, temperatureList) => {
   tempMax.removeAttribute("data-skeleton");
 };
 
-render.byDate = (weatherList, temperatureList, dustList) => {
-  console.log("byDate");
-  console.log("weatherList", weatherList);
-  console.log("temperatureList", temperatureList);
-  console.log("dustList", dustList);
+render.byDate = (
+  dates,
+  weatherList,
+  temperatureList,
+  { min, max },
+  dustList
+) => {
+  const result = document.getElementById("result");
+  const ul = document.createElement("ul");
+
+  dates.forEach((date) => {
+    const item = document.createElement("li");
+
+    const dateBox = document.createElement("div");
+    const dateText = document.createElement("p");
+    const weekText = document.createElement("p");
+
+    const monthDate = date.slice(5).split("-").map(Number);
+
+    dateText.innerText = monthDate.join("월") + "일";
+    weekText.innerText = getWeekday(date) + "요일";
+
+    dateBox.classList.add("date");
+    dateBox.append(dateText, weekText);
+
+    const weatherBox = document.createElement("div");
+    const weatherIcon = document.createElement("insd-weather-icon");
+    const weatherText = document.createElement("p");
+
+    const weather = weatherList[date];
+
+    weatherIcon.setAttribute("type", weatherCodes[weather].icon);
+    weatherText.innerText = weatherCodes[weather].name;
+
+    weatherBox.classList.add("weather");
+    weatherBox.append(weatherIcon, weatherText);
+
+    const othersBox = document.createElement("div");
+
+    const temperatureBox = document.createElement("div");
+    const temperatureMin = document.createElement("span");
+    const temperatureMax = document.createElement("span");
+    const temperatureProgress = document.createElement("div");
+
+    const temperature = temperatureList[date];
+
+    temperatureMin.innerText = temperature.min ? temperature.min : "--" + "°";
+    temperatureMax.innerText = temperature.max + "°";
+
+    temperatureProgress.classList.add("progress");
+    temperatureProgress.setAttribute(
+      "style",
+      `--start: ${temperature.min ? temperature.min : min};
+      --end: ${temperature.max};
+      --min: ${min};
+      --max: ${max};`
+    );
+
+    temperatureBox.classList.add("temperature");
+    temperatureBox.append(temperatureMin, temperatureProgress, temperatureMax);
+
+    const dustBox = document.createElement("div");
+    const dustTitle = document.createElement("span");
+    const dustGrade = document.createElement("span");
+
+    const dust = dustList[date];
+
+    dustTitle.innerText = "PM2.5";
+
+    dustGrade.innerText = dustCodes[dust].text;
+    dustGrade.setAttribute("style", `color: ${dustCodes[dust].color};`);
+
+    dustBox.classList.add("dust");
+    dustBox.append(dustTitle, dustGrade);
+
+    othersBox.classList.add("others");
+    othersBox.append(temperatureBox, dustBox);
+
+    item.append(dateBox, weatherBox, othersBox);
+    ul.append(item);
+  });
+
+  result.append(ul);
 };
 
 render.byCategory = (weatherList, temperatureList, dustList) => {

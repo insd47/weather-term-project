@@ -162,3 +162,25 @@ const getSummaryMessage = (weather) => {
     return "소나기가 올 수 있습니다.";
   }
 };
+
+const getWeekday = (date) =>
+  ["일", "월", "화", "수", "목", "금", "토"][new Date(date).getDay()];
+
+const dustCodes = {
+  "-1": {
+    text: "--",
+    color: "var(--color-passive)",
+  },
+  0: {
+    text: "좋음",
+    color: "var(--color-blue)",
+  },
+  1: {
+    text: "보통",
+    color: "var(--color-green)",
+  },
+  2: {
+    text: "나쁨",
+    color: "var(--color-red)",
+  },
+};

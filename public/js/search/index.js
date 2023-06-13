@@ -98,13 +98,52 @@ window.onload = async () => {
     shortTempList
   );
 
-  render.tempSummary(dates, temperatureList);
+  const min = Math.min(
+    ...dates.map((date) =>
+      temperatureList[date].min ? temperatureList[date].min : 0
+    )
+  );
+  const max = Math.max(...dates.map((date) => temperatureList[date].max));
+
+  render.tempSummary(min, max);
 
   const { dustList } = await get.dust(startDate, endDate, areaCodes[city]);
 
-  render.byDate(weatherList, temperatureList, dustList);
+  render.byDate(dates, weatherList, temperatureList, { min, max }, dustList);
 
   const { warningList } = await get.warn(areaCodes[city]);
 
   render.warn(warningList);
+
+  // 4. 탭 변경하기
+  const changeTab = (tab) => {
+    const result = document.getElementById("result");
+
+    for (let i = 0; i < 2; i++) tabs.children[i].removeAttribute("data-active");
+
+    if (tab === "byDate") {
+      tabs.children[0].setAttribute("data-active", true);
+
+      result.innerHTML = "";
+      result.setAttribute("class", "byDate");
+
+      render.byDate(
+        dates,
+        weatherList,
+        temperatureList,
+        { min, max },
+        dustList
+      );
+    } else {
+      tabs.children[1].setAttribute("data-active", true);
+
+      result.innerHTML = "";
+      result.setAttribute("class", "byCategory");
+
+      render.byCategory(weatherList, rainList, temperatureList, dustList);
+    }
+  };
+
+  tabs.children[0].addEventListener("click", () => changeTab("byDate"));
+  tabs.children[1].addEventListener("click", () => changeTab("byCategory"));
 };
