@@ -132,6 +132,7 @@ window.onload = () => {
       } else {
         data.documents.forEach((doc) => {
           const li = document.createElement("li");
+
           const compensated = doc.road_address_name
             ? doc.road_address_name
             : doc.address_name;
