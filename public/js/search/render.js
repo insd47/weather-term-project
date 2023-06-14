@@ -276,8 +276,8 @@ render.byCategory = (dates, temperatureList, dustList) => {
       "style",
       `--value: ${temperature.max};
       --next: ${temperatureList[dates[index + 1]]?.max || temperature.max};
-      --min: ${minOfMax};
-      --max: ${maxOfMax};
+      --min: ${minOfMax === maxOfMax ? minOfMax - 1 : minOfMax};
+      --max: ${maxOfMax === minOfMax ? maxOfMax + 1 : maxOfMax};
       --color: var(--color-yellow);`
     );
 
@@ -325,8 +325,8 @@ render.byCategory = (dates, temperatureList, dustList) => {
       "style",
       `--value: ${temperature.min};
       --next: ${temperatureList[dates[index + 1]]?.min || temperature.min};
-      --min: ${minOfMin};
-      --max: ${maxOfMin};
+      --min: ${minOfMin === maxOfMin ? minOfMin - 1 : minOfMin};
+      --max: ${maxOfMin === minOfMin ? maxOfMin + 1 : maxOfMin};
       --color: var(--color-blue);`
     );
 

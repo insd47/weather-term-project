@@ -375,8 +375,7 @@ footer {
 .graph > div > span {
   position: absolute;
   left: 0;
-  bottom: calc((var(--value) - var(--min)) / (var(--max) - var(--min)) * 100%);
-
+  /* bottom: calc((var(--value) - var(--min)) / (var(--max) - var(--min)) * 100%); */
   transform: translate(-50%, calc(50% - 20px));
   font-size: 12px;
   line-height: 16px;
