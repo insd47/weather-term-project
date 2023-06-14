@@ -46,6 +46,7 @@
   transform: translate(-50%, -50%);
 }
 
+/* custom settings */
 #summary-weather-min[data-skeleton], #summary-weather-max[data-skeleton] {
   width: 60px;
 }
@@ -75,8 +76,53 @@
   animation-delay: 1.0s;
 }
 
+.dateText.skeleton:after {
+  animation-delay: 1.2s;
+}
+
+.weekText.skeleton:after {
+  animation-delay: 1.4s;
+}
+
+.weatherText.skeleton:after {
+  animation-delay: 1.6s;
+}
+
+.tempDummy.skeleton:after {
+  animation-delay: 1.8s;
+}
+
+.weekText {
+  width: 30px;
+}
+
+.weatherText[data-skeleton] {
+  width: 100px;
+}
+
+.tempDummy[data-skeleton] {
+  width: 60px;
+}
+
+.dustDummy[data-skeleton] {
+  width: 40px;
+}
+
 #warn:after {
   animation-delay: 1.2s;
+}
+
+#result {
+  position: relative;
+}
+
+#result ul.fadeout {
+  top: 0;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  pointer-events: none;
+  animation: Fadeout 0.35s forwards;
 }
 
 @keyframes Skeleton {
@@ -90,5 +136,15 @@
 
   100% {
     background-color: var(--color-active);
+  }
+}
+
+@keyframes Fadeout {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
   }
 }

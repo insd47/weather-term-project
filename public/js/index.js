@@ -27,6 +27,9 @@ window.onload = () => {
 
   // 10일 이내의 날씨 정보만 조회할 수 있으므로, 10일치의 날짜 배열을 생성함.
   const tenDays = new Array(10).fill().map((_, i) => {
+    const now = new Date();
+    if (i === 0 && now.getHours() < 12) return;
+
     const date = new Date(getWeatherDate().formatted);
     date.setDate(date.getDate() + i);
 
@@ -155,7 +158,7 @@ window.onload = () => {
           searchAjax.appendChild(li);
         });
       }
-    }, 300);
+    }, 500);
   });
 
   // searchBar와 searchAjax의 포커스가 둘 다 없을 때, searchAjax를 숨김

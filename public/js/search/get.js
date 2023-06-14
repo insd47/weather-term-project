@@ -116,7 +116,6 @@ get.summary = async (
 
         rainList[fcstDate] = parseInt(now.fcstValue);
       } else if (now.category === "TMN") {
-        console.log("TMN", fcstDate);
         if (!(fcstDate in shortTempList)) shortTempList[fcstDate] = {};
         shortTempList[fcstDate].min = parseInt(now.fcstValue);
       } else if (now.category === "TMX") {
@@ -231,7 +230,7 @@ get.dust = async (startDate, endDate, areaCodes) => {
 
   // 초미세먼지 주간예보는 최대 7일까지 조회할 수 있으므로
   // 7일 이후의 데이터는 -1 (알 수 없음)으로 처리함.
-  if (endIndex > 7) {
+  if (endIndex >= 7) {
     dates.slice(7 - startIndex).forEach((date) => {
       dustList[date] = -1;
     });

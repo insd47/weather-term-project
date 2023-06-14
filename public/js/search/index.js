@@ -77,6 +77,8 @@ window.onload = async () => {
     return date.toISOString().split("T")[0];
   });
 
+  render.byDateSkeleton(dates);
+
   // 3. 요약 정보 API 불러오기 및 렌더링
   const { weatherList, rainList, shortTempList } = await get.summary(
     weatherDate,

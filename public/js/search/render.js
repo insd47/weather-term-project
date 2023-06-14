@@ -1,5 +1,72 @@
 const render = {};
 
+render.byDateSkeleton = (dates) => {
+  const result = document.getElementById("result");
+  const ul = document.createElement("ul");
+  ul.setAttribute("data-skeleton", true);
+  ul.setAttribute("style", "backround-color: var(--color-background);");
+
+  dates.forEach(() => {
+    const item = document.createElement("li");
+
+    const dateBox = document.createElement("div");
+    const dateText = document.createElement("p");
+    const weekText = document.createElement("p");
+
+    dateText.innerHTML = "-";
+    weekText.innerHTML = "-";
+
+    dateText.classList.add("dateText", "skeleton");
+    weekText.classList.add("weekText", "skeleton");
+
+    dateText.setAttribute("data-skeleton", true);
+    weekText.setAttribute("data-skeleton", true);
+
+    dateBox.classList.add("date");
+    dateBox.append(dateText, weekText);
+
+    const weatherBox = document.createElement("div");
+    const weatherText = document.createElement("p");
+
+    weatherText.innerHTML = "-";
+    weatherText.classList.add("weatherText", "skeleton");
+    weatherText.setAttribute("data-skeleton", true);
+
+    weatherBox.classList.add("weather");
+    weatherBox.append(weatherText);
+
+    const othersBox = document.createElement("div");
+    othersBox.classList.add("others");
+
+    const tempBox = document.createElement("div");
+    const tempDummy = document.createElement("p");
+
+    tempDummy.innerHTML = "-";
+    tempDummy.classList.add("tempDummy", "skeleton");
+    tempDummy.setAttribute("data-skeleton", true);
+
+    tempBox.classList.add("temperature");
+    tempBox.append(tempDummy);
+
+    const dustBox = document.createElement("div");
+    const dustDummy = document.createElement("span");
+
+    dustDummy.innerHTML = "-";
+    dustDummy.classList.add("dustDummy", "skeleton");
+    dustDummy.setAttribute("data-skeleton", true);
+
+    dustBox.classList.add("dust");
+    dustBox.append(dustDummy);
+
+    othersBox.append(tempBox, dustBox);
+    item.append(dateBox, weatherBox, othersBox);
+
+    ul.append(item);
+  });
+
+  result.append(ul);
+};
+
 render.summary = (dates, weatherList, rainList) => {
   const weathericon = document.getElementById("summary-weather-icon");
   const weathermessage = document.getElementById("summary-weather-message");
@@ -100,7 +167,7 @@ render.byDate = (
 
     const monthDate = date.slice(5).split("-").map(Number);
 
-    dateText.innerText = monthDate.join("월") + "일";
+    dateText.innerText = monthDate.join("월 ") + "일";
     weekText.innerText = getWeekday(date) + "요일";
 
     dateBox.classList.add("date");
@@ -163,6 +230,14 @@ render.byDate = (
     ul.append(item);
   });
 
+  if (
+    result.children.length > 0 &&
+    result.children[0].getAttribute("data-skeleton")
+  ) {
+    result.children[0].classList.add("fadeout");
+    setTimeout(() => result.children[0].remove(), 1000);
+  }
+
   result.append(ul);
 };
 
@@ -181,8 +256,6 @@ render.byCategory = (dates, temperatureList, dustList) => {
 
   const maxGraphAxis = document.createElement("div");
   maxGraphAxis.classList.add("graphaxis");
-
-  console.log(temperatureList);
 
   const minOfMax = Math.min(
     ...Object.values(temperatureList).map((t) => t.max)
