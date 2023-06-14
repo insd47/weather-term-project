@@ -101,7 +101,7 @@ class InsdFooter extends HTMLElement {
     this.innerHTML = `<footer>
     <img src="/assets/Logo.svg" />
     <div>
-      <p>부산대학교 정보의생명공학부</p>
+      <p>부산대학교 정보컴퓨터공학부</p>
       <p>202355598 황인성</p>
     </div>
   </footer>`;
