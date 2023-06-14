@@ -7,26 +7,44 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
+    <!-- opengraph -->
+    <meta property="og:title" content="오류" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://weather.insd.dev/" />
+    <meta
+      property="og:image"
+      content="https://weather.insd.dev/assets/ogimage.jpg"
+    />
+    <meta
+      property="og:description"
+      content="해당 페이지는 존재하지 않습니다."
+    />
+    <meta property="og:site_name" content="여행 갈만해?" />
+    <meta property="og:locale" content="ko_KR" />
     <!-- elements -->
     <script type="text/javascript" src="/js/elements.js"></script>
+    <!-- script -->
+    <script type="text/javascript" src="/js/error.js"></script>
     <!-- stylesheets -->
     <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/pages/error.css" />
     <!-- fonts -->
     <link rel="preload" href="/fonts/fonts.css" as="style" />
     <link rel="stylesheet" href="/fonts/fonts.css" />
   </head>
   <body>
-    <header>
-      <div class="container">
-        <div>
-          <button class="icon-button back" onclick="window.history.back()">
-            <span class="icon">icon-arrow-1-left</span>
-          </button>
-          <h1>오류</h1>
-        </div>
-        <div></div>
+    <div class="error">
+      <div class="errorId">
+        <h1 id="error-title">--</h1>
+        <p id="error-message">--</p>
       </div>
-    </header>
-    <div id="contents"></div>
+      <div class="actions">
+        <p id="error-description">--</p>
+        <button class="button" type="submit" onclick="window.history.back()">
+          <insd-icon type="arrow-1-left"></insd-icon>
+          <span>돌아가기</span>
+        </button>
+      </div>
+    </div>
   </body>
 </html>

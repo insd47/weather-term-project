@@ -1,0 +1,40 @@
+.error {
+  max-width: 448px;
+  max-height: 648px;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+
+  padding: 24px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: center;
+}
+
+.errorId {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.errorId h1 {
+  font-weight: 100;
+  font-size: 100px;
+  line-height: 100px;
+  margin-bottom: 20px;
+}
+
+.error > .actions > p {
+  margin-bottom: 34px;
+}
+
+@media (max-width: 900px) {
+  .error {
+    padding: 36px 24px;
+    max-width: unset;
+    max-height: unset;
+  }
+}

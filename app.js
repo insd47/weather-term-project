@@ -21,6 +21,15 @@ app.use((req, res, next) => {
   // 404 error
   const err = new Error("Not Found");
   err.status = 404;
+
+  res.status(404).redirect(
+    "/error?type=RequestError&details=" +
+      JSON.stringify({
+        code: 404,
+        message: "페이지를 찾을 수 없습니다",
+      })
+  );
+
   next(err);
 });
 
