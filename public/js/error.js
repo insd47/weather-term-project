@@ -40,6 +40,26 @@ window.onload = async () => {
   const errorDescription = document.getElementById("error-description");
 
   switch (type) {
+    case "noParameterError":
+      errorTitle.innerText = "오류";
+      errorMessage.innerText = "잘못된 접근";
+      errorDescription.innerText =
+        "요청에 필요한 필수 정보가 누락되었습니다.\n메인 화면에서 다시 시도하십시오.";
+
+      const backButton = document.querySelector("button.button[type=submit]");
+      backButton.onclick = () => {
+        document.location.replace("/");
+      };
+
+      const backButtonIcon = document.createElement("insd-icon");
+      backButtonIcon.setAttribute("type", "home");
+
+      const backButtonText = document.createElement("span");
+      backButtonText.innerText = "메인 화면으로";
+
+      backButton.innerHTML = "";
+      backButton.append(backButtonIcon, backButtonText);
+      break;
     case "RequestError":
       errorTitle.innerText = code;
       errorMessage.innerText = requestErrorTypes[code].message;

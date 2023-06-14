@@ -43,7 +43,15 @@ window.onload = async () => {
     !query.latitude ||
     !query.longitude
   ) {
-    document.location.href = "/error";
+    const query = {
+      type: "noParameterError",
+      details: JSON.stringify({
+        code: "",
+        message: "잘못된 접근",
+      }),
+    };
+
+    document.location.href = "/error?" + new URLSearchParams(query);
     return;
   }
 
