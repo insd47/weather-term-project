@@ -308,6 +308,7 @@ header button.icon-button:active {
 }
 
 /* desktop */
+/* 모바일 환경 기준으로 개발하고, 데스크탑 환경을 media query로 대응하였음. */
 @media (min-width: 900px) {
   header {
     height: 80px;

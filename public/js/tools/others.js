@@ -39,7 +39,7 @@ const handleError = async (res, noAPIError, callback) => {
 
   const { response } = await res.json();
 
-  if (!response.header) {
+  if (typeof response !== "object") {
     const params = {
       type: "APIError",
       details: JSON.stringify({
