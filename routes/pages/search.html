@@ -17,7 +17,6 @@
     <!-- tools -->
     <script type="text/javascript" src="/js/tools/positions.js"></script>
     <script type="text/javascript" src="/js/tools/others.js"></script>
-    <script type="text/javascript" src="/js/tools/graph.js"></script>
     <script type="text/javascript" src="/js/tools/weatherCodes.js"></script>
     <script type="text/javascript" src="/js/tools/areaCodes.js"></script>
     <!-- script -->
@@ -32,13 +31,24 @@
     <header>
       <div class="container">
         <div>
-          <button class="back" onclick="window.history.back()">
+          <button class="icon-button back" onclick="window.history.back()">
             <insd-icon type="arrow-1-left"></insd-icon>
           </button>
           <insd-icon style="margin-right: 4px" type="pos"></insd-icon>
           <h1 id="pageTitle"></h1>
         </div>
-        <div></div>
+        <div>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href="https://github.com/insd47/weather-term-project"
+            class="insd-github"
+          >
+            <button class="icon-button">
+              <insd-github-icon></insd-github-icon>
+            </button>
+          </a>
+        </div>
       </div>
     </header>
     <div id="contents">
@@ -84,38 +94,8 @@
         <button type="button" data-active>일별</button>
         <button type="button">항목별</button>
       </nav>
-      <div id="result" class="byDate">
-        <!-- <ul>
-          <li>
-            <div class="date">
-              <p>5월 27일</p>
-              <p>월요일</p>
-            </div>
-            <div class="weather">
-              <insd-weather-icon type="sun_cloudy"></insd-weather-icon>
-              <span>맑고 구름</span>
-            </div>
-            <div class="others">
-              <div class="temperature">
-                <span>18°</span>
-                <div
-                  class="progress"
-                  style="--start: 18; --end: 26; --min: 16; --max: 30"
-                ></div>
-                <span>26°</span>
-              </div>
-              <div class="dust">
-                <span>PM2.5</span>
-                <span>나쁨</span>
-              </div>
-            </div>
-          </li>
-        </ul> -->
-      </div>
-      <footer>
-        by insd.<br />
-        <a href="/about">어플리케이션 정보</a>
-      </footer>
+      <div id="result" class="byDate"></div>
+      <insd-footer></insd-footer>
     </div>
   </body>
 </html>

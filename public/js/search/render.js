@@ -374,7 +374,7 @@ render.byCategory = (dates, temperatureList, dustList) => {
   result.append(maxTempElement, minTempElement, dustElement);
 };
 
-render.warn = (warningList) => {
+render.warn = (city, warningList) => {
   const warn = document.getElementById("warn");
   const newIcon = document.createElement("insd-icon");
 
@@ -387,6 +387,15 @@ render.warn = (warningList) => {
     warn.children[1].innerText = "유효한 기상 특보가 없습니다.";
   } else {
     warn.setAttribute("data-type", "warn");
+
+    warn.onclick = () => {
+      const params = {
+        warningList: JSON.stringify(warningList),
+        city: city,
+      };
+
+      window.location.href = "/warn?" + new URLSearchParams(params).toString();
+    };
 
     newIcon.setAttribute("type", "warn");
     warn.children[0].replaceWith(newIcon);

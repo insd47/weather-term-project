@@ -1,5 +1,3 @@
-const parseResponse = () => {};
-
 // 해당 페이지로 전환하면
 window.onload = async () => {
   // 스크롤 상태에 따라 헤더의 구분선을 보여주는 코드
@@ -17,6 +15,8 @@ window.onload = async () => {
 
   const tabObserver = new IntersectionObserver(
     ([tabs]) => {
+      if (window.innerWidth >= 900) return;
+
       if (tabs.intersectionRect.top < 65)
         header[0].toggleAttribute(
           "data-scroll",
@@ -143,5 +143,5 @@ window.onload = async () => {
 
   const { warningList } = await get.warn(areaCodes[city]);
 
-  render.warn(warningList);
+  render.warn(city, warningList);
 };

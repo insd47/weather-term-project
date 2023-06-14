@@ -39,6 +39,23 @@ const handleError = async (res, noAPIError, callback) => {
 
   const { response } = await res.json();
 
+  if (!response.header) {
+    const params = {
+      type: "APIError",
+      details: JSON.stringify({
+        code: "01",
+        message: "SERVICE ERROR",
+      }),
+    };
+
+    if (callback) callback(params);
+    else
+      window.location.replace(
+        `/error?${new URLSearchParams(params).toString()}`
+      );
+    return;
+  }
+
   if (response.header.resultCode !== "00" && (!noAPIError || callback)) {
     const params = {
       type: "APIError",

@@ -1,0 +1,31 @@
+#contents {
+  max-width: 900px;
+}
+
+#warn-container {
+  margin-bottom: 100px;
+  padding-top: 24px;
+}
+
+#warn-container li {
+  margin-bottom: 20px;
+}
+
+#warn-container li .title {
+  color: var(--color-yellow);
+
+  display: flex;
+  column-gap: 4px;
+  align-items: center;
+  margin-bottom: 14x;
+}
+
+#warn-container li .title span:nth-child(2) {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+footer {
+  margin-bottom: 100px;
+}

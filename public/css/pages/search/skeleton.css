@@ -16,6 +16,10 @@
   transition: background-color 0.35s;
 }
 
+.skeleton[data-skeleton] {
+  pointer-events: none;
+}
+
 .skeleton[data-skeleton]:before {
   background-color: var(--color-background);
 }
